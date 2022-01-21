@@ -9,33 +9,44 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.javaex.dao.UserDao;
 import com.javaex.vo.UserVo;
 
-
 @Controller
 public class UserController {
-    
+
 	@Autowired
 	UserDao userDao;
-	
-	//로그인폼
-	@RequestMapping(value="/user/loginForm", method= {RequestMethod.GET, RequestMethod.POST})
+
+	// 로그인폼
+	@RequestMapping(value = "/user/loginForm", method = { RequestMethod.GET, RequestMethod.POST })
 	public String loginForm() {
 		System.out.println("[UserComtroller.loginForm()]");
 		return "/user/loginForm";
 	}
-	//로그인
-	@RequestMapping(value="/user/login", method= {RequestMethod.GET, RequestMethod.POST})
+
+	// 로그인
+	@RequestMapping(value = "/user/login", method = { RequestMethod.GET, RequestMethod.POST })
 	public String loginin(@ModelAttribute UserVo userVo) {
 		System.out.println("[UserComtroller.loginin()]");
-		
+
 		UserVo authUser = userDao.getUser(userVo);
 		return "/user/joinOk";
+	}
+
+	@RequestMapping(value = "/user/joinForm", method = { RequestMethod.GET, RequestMethod.POST })
+	public String joinForm() {
+		System.out.println("[UserComtroller.joinForm()]");
+
+		return "/user/joinForm";
+	}
+	
+	public String join() {
+		
+		return "redirect:/main";
 	}
 //	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		System.out.println("/user");
 //		String act = request.getParameter("action");
 //		
-//		if("joinForm".equals(act)) {
-//			WebUtil.forward(request, response, "/WEB-INF/views/user/joinForm.jsp");
+
 //		
 //		} else if("join".equals(act)) {
 //			String id = request.getParameter("id");
