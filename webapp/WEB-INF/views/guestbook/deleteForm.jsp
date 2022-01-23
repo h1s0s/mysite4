@@ -46,10 +46,10 @@
 								<td>비밀번호</td>
 								<td><input type="password" name="password" value=""></td>
 								<td class="text-left"><button type="submit">삭제</button></td>
-								<td><a href="/mysite4/main">[메인으로 돌아가기]</a></td>
+								<td><a href="/mysite4/">[메인으로 돌아가기]</a></td>
 							</tr>
 						</table>
-						<input type="text" name="no" value="${param.no}"> <input type="text" name="action" value="delete">
+						<input type="text" name="no" value="${requestScope.no}"> <input type="text" name="action" value="delete">
 					</form>
 				</div>
 				<!-- //guestbook -->

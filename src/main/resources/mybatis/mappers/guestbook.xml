@@ -4,4 +4,16 @@
 
 <mapper namespace="guestbook">
 
+	<select id="getList" parameterType="GuestbookVo" resultType="GuestbookVo">
+		<![CDATA[
+			 select   no,
+					  name,
+					  password,
+					  content,
+					  to_char(reg_date, 'YYYY-MM-DD HH:MI:SS') regDate
+			 from     guestbook
+			 order by reg_date desc
+		]]>
+	</select>
+	
 </mapper>

@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/mysite/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="/mysite/assets/css/guestbook.css" rel="stylesheet" type="text/css">
+<link href="/mysite4/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="/mysite4/assets/css/guestbook.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -22,7 +22,7 @@
 			<!-- /aside -->
 			<div id="content">
 				<div id="guestbook">
-					<form action="/mysite/guest" method="get">
+					<form action="/mysite4/guest/add" method="get">
 						<table id="guestAdd">
 							<colgroup>
 								<col style="width: 70px;">
@@ -46,9 +46,8 @@
 							</tbody>
 						</table>
 						<!-- //guestWrite -->
-						<input type="hidden" name="action" value="add"> <input type="hidden" name="action" value="add">
 					</form>
-					<c:forEach items="${requestScope.gList}" var="vo">
+					<c:forEach items="${requestScope.guestbookList}" var="vo">
 						<table class="guestRead">
 							<colgroup>
 								<col style="width: 10%;">
@@ -60,7 +59,7 @@
 								<td>${vo.no}</td>
 								<td>${vo.name}</td>
 								<td>${vo.regDate}</td>
-								<td><a href="/mysite/guest?action=deleteForm&no=${vo.no}">[삭제]</a></td>
+								<td><a href="/mysite4/guest/deleteForm&no=${vo.no}">[삭제]</a></td>
 							</tr>
 							<tr>
 								<td colspan=4 class="text-left">${vo.content}</td>

@@ -1,71 +1,59 @@
 package com.javaex.controller;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaex.dao.GuestbookDao;
-import com.javaex.util.WebUtil;
 import com.javaex.vo.GuestbookVo;
 
-@WebServlet("/guest")
-public class GuestbookController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@Controller
+@RequestMapping(value = "/guest", method = { RequestMethod.GET, RequestMethod.POST })
+public class GuestbookController {
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		System.out.println("/guest");
-		String act = request.getParameter("action");
+	@Autowired
+	private GuestbookDao guestbookDao;
 
-		if ("addList".equals(act)) { // 방명록 등록 및 보기 폼
-			System.out.println("action > addList");
-			
-			List<GuestbookVo> guestbookList = new GuestbookDao().getList();
-			request.setAttribute("gList", guestbookList);
+	@RequestMapping(value = "/addList", method = { RequestMethod.GET, RequestMethod.POST })
+	public String addList(Model model) {
+		System.out.println("[GuestbookController.addList()");
 
-			WebUtil.forward(request, response, "/WEB-INF/views/guestbook/addList.jsp");
+		List<GuestbookVo> guestbookList = guestbookDao.getList();
 
-		} else if ("add".equals(act)) { // 방명록 등록
-			System.out.println("action > add");
-			
-			String name = request.getParameter("name");
-			String password = request.getParameter("password");
-			String content = request.getParameter("content");
-
-			GuestbookVo guestbookVo = new GuestbookVo(name, password, content);
-
-			new GuestbookDao().guestbookInsert(guestbookVo);
-
-			WebUtil.redirect(request, response, "/mysite/guest?action=addList");
-		} else if ("deleteForm".equals(act)) { // 방명록 삭제폼
-			System.out.println("action > deleteForm");
-			
-			WebUtil.forward(request, response, "/WEB-INF/views/guestbook/deleteForm.jsp");
-		} else if ("delete".equals(act)) { // 방명록 삭제
-			System.out.println("action > delete");
-			
-			int no = Integer.parseInt(request.getParameter("no"));
-			String password = request.getParameter("password");
-			
-			new GuestbookDao().guestbookDelete(no, password);
-
-			WebUtil.redirect(request, response, "/mysite/guest?action=addList");
-
-		} else {
-			System.out.println("파라미터 없음");
-		}
-
+		model.addAttribute("guestbookList", guestbookList);
+		return "/guestbook/addList";
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	@RequestMapping(value = "/add", method = { RequestMethod.GET, RequestMethod.POST })
+	public String add(@ModelAttribute GuestbookVo guestbookVo) {
+		System.out.println("[GuestbookController.add()");
 
-		doGet(request, response);
+		guestbookDao.guestbookInsert(guestbookVo);
+
+		return "redirect:/guest/addList";
+	}
+
+	@RequestMapping(value = "/deleteForm", method = { RequestMethod.GET, RequestMethod.POST })
+	public String deleteForm(@RequestParam("no") int no, Model model) {
+		System.out.println("[GuestbookController.deleteForm()");
+		
+		model.addAttribute("no", no);
+		return "/guestbook/deleteForm";
+	}
+
+	@RequestMapping(value = "/delete", method = { RequestMethod.GET, RequestMethod.POST })
+	public String delete(@RequestParam("no") int no, @RequestParam("password") String password) {
+		System.out.println("[GuestbookController.delete()");
+
+		guestbookDao.guestbookDelete(no, password);
+
+		return "redirect:/guest/addList";
 	}
 
 }

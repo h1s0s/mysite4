@@ -10,37 +10,53 @@ import com.javaex.dao.UserDao;
 import com.javaex.vo.UserVo;
 
 @Controller
+@RequestMapping(value = "/user", method = { RequestMethod.GET, RequestMethod.POST })
 public class UserController {
 
 	@Autowired
 	UserDao userDao;
 
 	// 로그인폼
-	@RequestMapping(value = "/user/loginForm", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/loginForm", method = { RequestMethod.GET, RequestMethod.POST })
 	public String loginForm() {
 		System.out.println("[UserComtroller.loginForm()]");
 		return "/user/loginForm";
 	}
 
 	// 로그인
-	@RequestMapping(value = "/user/login", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
 	public String loginin(@ModelAttribute UserVo userVo) {
 		System.out.println("[UserComtroller.loginin()]");
 
 		UserVo authUser = userDao.getUser(userVo);
 		return "/user/joinOk";
 	}
-
-	@RequestMapping(value = "/user/joinForm", method = { RequestMethod.GET, RequestMethod.POST })
+	// 
+	@RequestMapping(value = "/joinForm", method = { RequestMethod.GET, RequestMethod.POST })
 	public String joinForm() {
 		System.out.println("[UserComtroller.joinForm()]");
 
 		return "/user/joinForm";
 	}
 	
+	@RequestMapping(value = "/join", method = { RequestMethod.GET, RequestMethod.POST })
 	public String join() {
+		System.out.println("[UserComtroller.join()]");
 		
-		return "redirect:/main";
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/modifyForm", method = { RequestMethod.GET, RequestMethod.POST })
+	public String modifyForm() {
+		System.out.println("[UserComtroller.modifyForm()]");
+		
+		return "/user/modifyForm";
+	}
+	@RequestMapping(value = "/modify", method = { RequestMethod.GET, RequestMethod.POST })
+	public String modify(@ModelAttribute UserVo userVo) {
+		System.out.println("[UserComtroller.modify()]");
+		
+		return "redirect:/";
 	}
 //	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		System.out.println("/user");
