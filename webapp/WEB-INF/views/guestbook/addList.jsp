@@ -59,7 +59,7 @@
 								<td>${vo.no}</td>
 								<td>${vo.name}</td>
 								<td>${vo.regDate}</td>
-								<td><a href="/mysite4/guest/deleteForm&no=${vo.no}">[삭제]</a></td>
+								<td><a href="/mysite4/guest/deleteForm?no=${vo.no}">[삭제]</a></td>
 							</tr>
 							<tr>
 								<td colspan=4 class="text-left">${vo.content}</td>

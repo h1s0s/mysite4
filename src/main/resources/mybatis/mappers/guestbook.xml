@@ -16,4 +16,19 @@
 		]]>
 	</select>
 	
+	<insert id="guestbookInsert" parameterType="GuestbookVo">
+		<![CDATA[
+			insert into guestbook
+			values (seq_id.nextval, #{name}, #{password}, #{content}, sysdate)
+		]]>
+	</insert>
+	
+	<delete id="guestbookDelete" parameterType="map">
+		<![CDATA[
+			delete guestbook
+			where no = #{no}
+			and password = #{password}
+		]]>
+	</delete>
+	
 </mapper>

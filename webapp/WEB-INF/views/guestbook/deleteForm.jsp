@@ -34,7 +34,7 @@
 				</div>
 				<!-- //content-head -->
 				<div id="guestbook">
-					<form action="/mysite4/guest" method="get">
+					<form action="/mysite4/guest/delete" method="get">
 						<table id="guestDelete">
 							<colgroup>
 								<col style="width: 10%;">
@@ -49,7 +49,7 @@
 								<td><a href="/mysite4/">[메인으로 돌아가기]</a></td>
 							</tr>
 						</table>
-						<input type="text" name="no" value="${requestScope.no}"> <input type="text" name="action" value="delete">
+						<input type="text" name="no" value="${requestScope.no}">
 					</form>
 				</div>
 				<!-- //guestbook -->
