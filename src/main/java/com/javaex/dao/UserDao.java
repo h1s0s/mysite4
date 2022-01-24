@@ -13,9 +13,9 @@ public class UserDao {
 	private SqlSession sqlSession;
 	
 	// 회원정보 1명 가져오기(로그인용)
-	public UserVo getUser(UserVo userVo) {
+	public UserVo selectUser(UserVo userVo) {
 		System.out.println("[UserDao.getUser()]");
-		return sqlSession.selectOne("user.getUser", userVo);
+		return sqlSession.selectOne("user.selectUser", userVo);
 	}
 //	// 저장 메소드(회원가입)
 //	public int insert(UserVo userVo) {

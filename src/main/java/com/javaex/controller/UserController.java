@@ -1,5 +1,7 @@
 package com.javaex.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,39 +25,59 @@ public class UserController {
 		return "/user/loginForm";
 	}
 
-	// 로그인
+	// 로그인(세션 활용)
 	@RequestMapping(value = "/login", method = { RequestMethod.GET, RequestMethod.POST })
-	public String loginin(@ModelAttribute UserVo userVo) {
+	public String login(@ModelAttribute UserVo userVo, HttpSession session) {
 		System.out.println("[UserComtroller.loginin()]");
 
-		UserVo authUser = userDao.getUser(userVo);
-		return "/user/joinOk";
+		UserVo authUser = userDao.selectUser(userVo);
+
+		if (authUser != null) {
+			System.out.println("[로그인성공]");
+			session.setAttribute("authUser", authUser);
+			return "redirect:/";
+		} else {
+			System.out.println("[로그인실패]");
+			return "redirect:/user/loginForm?result=fail";
+		}
 	}
-	// 
+	@RequestMapping(value = "/logout", method = { RequestMethod.GET, RequestMethod.POST })
+	public String logout(HttpSession session) {
+		System.out.println("[UserComtroller.logout()]");
+
+		//세션의 정보 삭제
+		session.removeAttribute("authUser");
+		session.invalidate();//초기화
+		
+		return "redirect:/";
+	}
+	
+	//
 	@RequestMapping(value = "/joinForm", method = { RequestMethod.GET, RequestMethod.POST })
 	public String joinForm() {
 		System.out.println("[UserComtroller.joinForm()]");
 
 		return "/user/joinForm";
 	}
-	
+
 	@RequestMapping(value = "/join", method = { RequestMethod.GET, RequestMethod.POST })
 	public String join() {
 		System.out.println("[UserComtroller.join()]");
-		
+
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping(value = "/modifyForm", method = { RequestMethod.GET, RequestMethod.POST })
 	public String modifyForm() {
 		System.out.println("[UserComtroller.modifyForm()]");
-		
+
 		return "/user/modifyForm";
 	}
+
 	@RequestMapping(value = "/modify", method = { RequestMethod.GET, RequestMethod.POST })
 	public String modify(@ModelAttribute UserVo userVo) {
 		System.out.println("[UserComtroller.modify()]");
-		
+
 		return "redirect:/";
 	}
 //	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

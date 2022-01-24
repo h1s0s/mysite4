@@ -40,10 +40,9 @@ public class GuestbookController {
 	}
 
 	@RequestMapping(value = "/deleteForm", method = { RequestMethod.GET, RequestMethod.POST })
-	public String deleteForm(@RequestParam("no") int no, Model model) {
+	public String deleteForm(@RequestParam("no") int no) {
 		System.out.println("[GuestbookController.deleteForm()");
 		
-		model.addAttribute("no", no);
 		return "/guestbook/deleteForm";
 	}
 

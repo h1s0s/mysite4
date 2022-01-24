@@ -4,7 +4,7 @@
 
 <mapper namespace="user">
 
-	<select id="getUser" parameterType="UserVo" resultType="UserVo">
+	<select id="selectUser" parameterType="UserVo" resultType="UserVo">
 		<![CDATA[
 			select          no,
 		                    name
