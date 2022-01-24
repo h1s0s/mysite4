@@ -47,6 +47,7 @@ public class BoardDao {
 	//게시물 수정
 	public void boardUpdate(BoardVo boardVo) {
 		System.out.println("[BoardDao.boardUpdate()]");
+		System.out.println(boardVo);
 		int count = sqlSession.update("board.boardUpdate", boardVo);
 		System.out.println("["+count+"건이 수정되었습니다]");
 	}

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.javaex.dao.BoardDao;
 import com.javaex.vo.BoardVo;
+import com.javaex.vo.UserVo;
 
 @Service
 public class BoardService {
@@ -21,12 +22,8 @@ public class BoardService {
 
 	public BoardVo getBoard(int num) {
 		System.out.println("[BoardService.getBoard()]");
-		return boardDao.getBoard(num);
-	}
-
-	public void hitPlus(int num) {
-		System.out.println("[BoardService.hitPlus()]");
 		boardDao.hitPlus(num);
+		return boardDao.getBoard(num);
 	}
 
 	public void boardInsert(BoardVo boardVo) {

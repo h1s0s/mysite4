@@ -40,7 +40,7 @@
 
 				<div id="board">
 					<div id="modifyForm">
-						<form action="${pageContext.request.contextPath}/board" method="get">
+						<form action="${pageContext.request.contextPath}/board/modify" method="get">
 							<!-- 작성자 -->
 							<div class="form-group">
 								<span class="form-text">작성자</span> <span class="form-value">${requestScope.boardVo.name}</span>
@@ -66,9 +66,9 @@
 								<textarea id="txt-content" name="content">${requestScope.boardVo.content}</textarea>
 							</div>
 
-							<a id="btn_cancel" href="${pageContext.request.contextPath}/board?action=read&no=${requestScope.boardVo.no}">취소</a>
+							<a id="btn_cancel" href="${pageContext.request.contextPath}/board/read?no=${requestScope.boardVo.no}">취소</a>
 							<button id="btn_modify" type="submit">수정</button>
-							<input type="text" name="action" value="modify"> <input type="text" name="no" value="${requestScope.boardVo.no}">
+							<input type="text" name="no" value="${requestScope.boardVo.no}">
 						</form>
 						<!-- //form -->
 					</div>

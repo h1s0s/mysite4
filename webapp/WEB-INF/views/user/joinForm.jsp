@@ -44,7 +44,7 @@
 
 					<div id="user">
 						<div id="joinForm">
-							<form action="${pageContext.request.contextPath}/user" method="get">
+							<form action="${pageContext.request.contextPath}/user/join" method="get">
 
 								<!-- 아이디 -->
 								<div class="form-group">
@@ -77,8 +77,6 @@
 								<div class="button-area">
 									<button type="submit" id="btn-submit">회원가입</button>
 								</div>
-
-								<input type="text" name="action" value="join">
 							</form>
 						</div>
 						<!-- //joinForm -->

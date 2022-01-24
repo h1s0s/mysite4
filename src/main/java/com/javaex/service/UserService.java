@@ -16,5 +16,19 @@ public class UserService {
 		UserVo authUser = userDao.selectUser(userVo);
 		return authUser;
 	}
+	
+	public UserVo modifyForm(int no) {
+		return userDao.getUser(no);
+	}
+	
+	public void modify(UserVo userVo) {
+		userDao.Update(userVo);
+	}
+	
+	public void join(UserVo userVo) {
+		userDao.insert(userVo);
+	}
+	
+	
 
 }

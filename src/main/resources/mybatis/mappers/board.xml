@@ -39,6 +39,14 @@
 			where   no = #{num}
 		]]>
 	</update>
+	<update id="boardUpdate" parameterType="BoardVo">
+		<![CDATA[
+			update board
+			set    title = #{title},
+				   content = #{content}
+			where  no = #{no}
+		]]>
+	</update>
 	
 	<insert id="boardInsert" parameterType="BoardVo">
 		<![CDATA[

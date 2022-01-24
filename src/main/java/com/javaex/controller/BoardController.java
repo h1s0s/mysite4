@@ -46,13 +46,17 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/write", method = { RequestMethod.GET, RequestMethod.POST })
-	public String write(HttpSession session) {
+	public String write(HttpSession session, @RequestParam("title") String title,
+			@RequestParam("content") String content) {
 		System.out.println("[BoardController.write()");
 
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		System.out.println(authUser);
-		//boardService.boardInsert(authUser);
-		
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		BoardVo boardVo = new BoardVo();
+		boardVo.setTitle(title);
+		boardVo.setContent(content);
+		boardVo.setUserNo(authUser.getNo());
+		boardService.boardInsert(boardVo);
+
 		return "redirect:/board/list";
 	}
 
@@ -61,17 +65,18 @@ public class BoardController {
 		System.out.println("[BoardController.read()");
 
 		BoardVo boardVo = boardService.getBoard(no);
-		
+
 		model.addAttribute("boardVo", boardVo);
-		
+
 		return "/board/read";
 	}
+
 	@RequestMapping(value = "/delete", method = { RequestMethod.GET, RequestMethod.POST })
 	public String delete(@RequestParam("no") int no) {
 		System.out.println("[BoardController.delete()");
 
 		boardService.boardDelete(no);
-		
+
 		return "redirect:/board";
 	}
 
@@ -80,36 +85,19 @@ public class BoardController {
 		System.out.println("[BoardController.modifyForm()");
 
 		BoardVo boardVo = boardService.getBoard(no);
-		
+
 		model.addAttribute("boardVo", boardVo);
-		
+
 		return "/board/modifyForm";
 	}
-	
+
 	@RequestMapping(value = "/modify", method = { RequestMethod.GET, RequestMethod.POST })
 	public String modify(@ModelAttribute BoardVo boardVo) {
 		System.out.println("[BoardController.modify()");
 
 		boardService.boardUpdate(boardVo);
-		
-		
-		return "redirect:/board";
+
+		return "redirect:/board/list";
 	}
-
-//		} else if ("modify".equals(act)) {// 게시글 수정
-//			System.out.println("action > modify");
-//
-//			int no = Integer.parseInt(request.getParameter("no"));
-//			String title = request.getParameter("title");
-//			String content = request.getParameter("content");
-//
-//			BoardVo boardVo = new BoardVo(no, title, content);
-//			new BoardDao().boardUpdate(boardVo);
-//
-//			WebUtil.redirect(request, response, "/mysite/board?action=list");
-//		} else {
-//			System.out.println("파라미터 없음");
-//		}
-
 
 }
