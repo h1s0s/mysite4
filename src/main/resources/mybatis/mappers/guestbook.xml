@@ -31,4 +31,13 @@
 		]]>
 	</delete>
 	
+	<update id="guestbookUpdate" parameterType="GuestbookVo">
+		<![CDATA[
+			update board
+			set    title = #{title},
+				   content = #{content}
+			where  no = #{no}
+		]]>
+	</update>
+	
 </mapper>

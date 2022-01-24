@@ -66,9 +66,9 @@
 								<span class="form-value">${requestScope.boardVo.content} </span>
 							</div>
 							<c:if test="${(sessionScope.authUser.no)==(requestScope.boardVo.userNo)}">
-								<a id="btn_modify" href="${pageContext.request.contextPath}/board?action=modifyForm&no=${requestScope.boardVo.no}">수정</a>
+								<a id="btn_modify" href="${pageContext.request.contextPath}/board/modifyForm?no=${requestScope.boardVo.no}">수정</a>
 							</c:if>
-							<a id="btn_modify" href="${pageContext.request.contextPath}/board?action=list">목록</a>
+							<a id="btn_modify" href="${pageContext.request.contextPath}/board/list">목록</a>
 
 						</form>
 						<!-- //form -->

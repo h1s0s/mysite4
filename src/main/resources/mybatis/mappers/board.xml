@@ -17,4 +17,39 @@
 			order by bo.no desc
 		]]>
 	</select>
+	<select id="getBoard" parameterType="int" resultType="BoardVo">
+		<![CDATA[
+			select   us.name name,
+			         bo.no no,
+			         bo.title title,
+			         bo.content content,
+			         bo.hit hit,
+			         to_char(bo.reg_date, 'YY-MM-DD HH:MI') regDate,
+			         bo.user_no userNo
+			from     board bo, users us
+			where    bo.user_no = us.no
+			and		 bo.no = #{num}
+		]]>
+	</select>
+	
+	<update id="hitPlus" parameterType="int">
+		<![CDATA[
+			update  board
+			set     hit = hit+1
+			where   no = #{num}
+		]]>
+	</update>
+	
+	<insert id="boardInsert" parameterType="BoardVo">
+		<![CDATA[
+			insert into board
+			values (seq_board_no.nextval, #{title}, #{content}, 0, sysdate, #{userNo})
+		]]>
+	</insert>
+		<delete id="boardDelete" parameterType="int">
+		<![CDATA[
+			delete board
+			where no = #{num}
+		]]>
+	</delete>
 </mapper>
