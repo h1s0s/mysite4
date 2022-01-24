@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/mysite4/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="/mysite4/assets/css/user.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/user.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -48,7 +48,7 @@
 							회원가입을 축하합니다.
 							<br>
 							<br>
-							<a href="/mysite4/user/loginForm">[로그인하기]</a>
+							<a href="${pageContext.request.contextPath}/user/loginForm">[로그인하기]</a>
 						</p>
 
 					</div>

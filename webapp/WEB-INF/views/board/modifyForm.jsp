@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/mysite/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="/mysite/assets/css/board.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/board.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -40,7 +40,7 @@
 
 				<div id="board">
 					<div id="modifyForm">
-						<form action="/mysite/board" method="get">
+						<form action="${pageContext.request.contextPath}/board" method="get">
 							<!-- 작성자 -->
 							<div class="form-group">
 								<span class="form-text">작성자</span> <span class="form-value">${requestScope.boardVo.name}</span>
@@ -66,7 +66,7 @@
 								<textarea id="txt-content" name="content">${requestScope.boardVo.content}</textarea>
 							</div>
 
-							<a id="btn_cancel" href="/mysite/board?action=read&no=${requestScope.boardVo.no}">취소</a>
+							<a id="btn_cancel" href="${pageContext.request.contextPath}/board?action=read&no=${requestScope.boardVo.no}">취소</a>
 							<button id="btn_modify" type="submit">수정</button>
 							<input type="text" name="action" value="modify"> <input type="text" name="no" value="${requestScope.boardVo.no}">
 						</form>

@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="/mysite/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="/mysite/assets/css/board.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/board.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -56,12 +56,12 @@
 								<c:forEach items="${requestScope.boardList}" var="vo">
 									<tr>
 										<td>${vo.no}</td>
-										<td class="text-left"><a href="/mysite/board?action=read&no=${vo.no}">${vo.title}</a></td>
+										<td class="text-left"><a href="${pageContext.request.contextPath}/board?action=read&no=${vo.no}">${vo.title}</a></td>
 										<td>${vo.name}</td>
 										<td>${vo.hit}</td>
 										<td>${vo.regDate}</td>
 										<td><c:if test="${(sessionScope.authUser.no) == (vo.userNo)}">
-												<a href="/mysite/board?action=delete&no=${vo.no}">[삭제]</a>
+												<a href="${pageContext.request.contextPath}/board?action=delete&no=${vo.no}">[삭제]</a>
 											</c:if></td>
 									</tr>
 								</c:forEach>
@@ -85,7 +85,7 @@
 							<div class="clear"></div>
 						</div>
 						<c:if test="${!(empty sessionScope.authUser)}">
-							<a id="btn_write" href="/mysite/board?action=writeForm">글쓰기</a>
+							<a id="btn_write" href="${pageContext.request.contextPath}/board?action=writeForm">글쓰기</a>
 						</c:if>
 					</div>
 					<!-- //list -->
