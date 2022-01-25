@@ -43,32 +43,33 @@
 						<form action="#" method="get">
 							<!-- 작성자 -->
 							<div class="form-group">
-								<span class="form-text">작성자</span> <span class="form-value">${requestScope.boardVo.name}</span>
+								<span class="form-text">작성자</span> <span class="form-value">${requestScope.commentVo.name}</span>
 							</div>
 
 							<!-- 조회수 -->
 							<div class="form-group">
-								<span class="form-text">조회수</span> <span class="form-value">${requestScope.boardVo.hit}</span>
+								<span class="form-text">조회수</span> <span class="form-value">${requestScope.commentVo.hit}</span>
 							</div>
 
 							<!-- 작성일 -->
 							<div class="form-group">
-								<span class="form-text">작성일</span> <span class="form-value">${requestScope.boardVo.regDate}</span>
+								<span class="form-text">작성일</span> <span class="form-value">${requestScope.commentVo.regDate}</span>
 							</div>
 
 							<!-- 제목 -->
 							<div class="form-group">
-								<span class="form-text">제 목</span> <span class="form-value">${requestScope.boardVo.title}</span>
+								<span class="form-text">제 목</span> <span class="form-value">${requestScope.commentVo.title}</span>
 							</div>
 
 							<!-- 내용 -->
 							<div id="txt-content">
-								<span class="form-value">${requestScope.boardVo.content} </span>
+								<span class="form-value">${requestScope.commentVo.content} </span>
 							</div>
-							<c:if test="${(sessionScope.authUser.no)==(requestScope.boardVo.userNo)}">
-								<a id="btn_modify" href="${pageContext.request.contextPath}/board/modifyForm?no=${requestScope.boardVo.no}">수정</a>
+							<c:if test="${(sessionScope.authUser.no)==(requestScope.commentVo.userNo)}">
+							<a id="btn_modify" href="${pageContext.request.contextPath}/comment/commentForm?groupNo=${requestScope.commentVo.groupNo}&orderNo=${requestScope.commentVo.orderNo}&depth=${requestScope.commentVo.depth}">답글</a>
+								<a id="btn_modify" href="${pageContext.request.contextPath}/comment/modifyForm?no=${requestScope.commentVo.no}">수정</a>
 							</c:if>
-							<a id="btn_modify" href="${pageContext.request.contextPath}/board/list">목록</a>
+							<a id="btn_modify" href="${pageContext.request.contextPath}/comment/list">목록</a>
 
 						</form>
 						<!-- //form -->

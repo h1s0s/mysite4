@@ -35,7 +35,7 @@
 				<!-- //content-head -->
 				<div id="board">
 					<div id="writeForm">
-						<form action="${pageContext.request.contextPath}/comment/write" method="get">
+						<form action="${pageContext.request.contextPath}/comment/commentWrite" method="get">
 							<!-- 제목 -->
 							<div class="form-group">
 								<label class="form-text" for="txt-title">제목</label> <input type="text" id="txt-title" name="title" value="" placeholder="제목을 입력해 주세요">
@@ -47,6 +47,9 @@
 							<a id="btn_cancel" href="">취소</a>
 							<button id="btn_add" type="submit">등록</button>
 							<input type="text" name="userNo" value="${sessionScope.authUser.no}"> <input type="text" name="name" value="${sessionScope.authUser.name}">
+							<input type="text" name="groupNo" value="${requestScope.momComment.groupNo}">
+							<input type="text" name="orderNo" value="${requestScope.momComment.orderNo}">
+							<input type="text" name="depth" value="${requestScope.momComment.depth}">
 						</form>
 						<!-- //form -->
 					</div>

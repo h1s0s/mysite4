@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="comment">
+	<select id="getList" resultType="CommentVo">
+		<![CDATA[
+			select   bo.no no,
+			         bo.user_no userNo,
+			         bo.title title,
+			         bo.content content,
+			         bo.hit hit,
+			         to_char(bo.reg_date, 'YY-MM-DD HH:MI') regDate,
+			         bo.group_no groupNo,
+			         bo.order_no orderNo,
+			         bo.depth depth,
+			         us.name name
+			from     rboard bo, users us
+			where    bo.user_no = us.no
+			order by group_no desc, order_no asc, no desc
+		]]>
+	</select>
+	
+	<select id="getComment" parameterType="int" resultType="CommentVo">
+		<![CDATA[
+			select   bo.no no,
+			         bo.user_no userNo,
+			         bo.title title,
+			         bo.content content,
+			         bo.hit hit,
+			         to_char(bo.reg_date, 'YYYY-MM-DD HH:MI') regDate,
+			         bo.group_no groupNo,
+			         bo.order_no orderNo,
+			         bo.depth depth,
+			         us.name name
+			from     rboard bo, users us
+			where	 bo.user_no = us.no
+			and		 bo.no = #{no}
+		]]>
+	</select>
+
+	<insert id="insert" parameterType="CommentVo">
+		<![CDATA[
+			insert into rboard
+			values(seq_rboard_no.nextval, #{userNo}, #{title}, #{content}, 0, sysdate, seq_rboard_no.currval, 1, 0)
+		]]>
+	</insert>
+	
+	<insert id="commentinsert" parameterType="CommentVo">
+		<![CDATA[
+			insert into rboard
+			values(seq_rboard_no.nextval, #{userNo}, #{title}, #{content}, 0, sysdate, #{groupNo}, #{orderNo}+1, #{depth}+1)
+		]]>
+	</insert>
+	
+	<update id="orderNoPlus" parameterType="CommentVo">
+		<![CDATA[
+			update rboard
+			set	   order_no = order_no + 1
+			where  group_no = #{groupNo}
+			and	   order_no > #{orderNo}+1
+		]]>
+	</update>
+	<update id="hitPlus" parameterType="int">
+		<![CDATA[
+			update  rboard
+			set     hit = hit+1
+			where   no = #{num}
+		]]>
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		<![CDATA[
+			delete rboard
+			where  no = #{no}
+		]]>
+	</delete>
+</mapper>

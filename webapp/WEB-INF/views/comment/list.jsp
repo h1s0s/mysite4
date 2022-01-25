@@ -26,7 +26,7 @@
 						<ul>
 							<li>홈</li>
 							<li>게시판</li>
-							<li class="last">일반게시판</li>
+							<li class="last">댓글게시판</li>
 						</ul>
 					</div>
 					<div class="clear"></div>
@@ -49,19 +49,33 @@
 									<th>글쓴이</th>
 									<th>조회수</th>
 									<th>작성일</th>
+									<!--
+									<th>그룹번호</th>
+									<th>그룹내 글순서</th>
+									<th>깊이</th>
+									-->
 									<th>관리</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach items="${requestScope.boardList}" var="vo">
+								<c:forEach items="${requestScope.commentList}" var="vo">
 									<tr>
 										<td>${vo.no}</td>
-										<td class="text-left"><a href="${pageContext.request.contextPath}/board/read?no=${vo.no}">${vo.title}</a></td>
+										<td class="text-left">
+											<a href="${pageContext.request.contextPath}/comment/read?no=${vo.no}">
+												<c:forEach begin="1" end="${vo.depth}">&nbsp&nbsp&nbsp&nbsp</c:forEach>${vo.title}
+											</a>
+										</td>
 										<td>${vo.name}</td>
 										<td>${vo.hit}</td>
 										<td>${vo.regDate}</td>
+										<%--
+										<td>${vo.groupNo}</td>
+										<td>${vo.orderNo}</td>
+										<td>${vo.depth}</td> 
+										--%>
 										<td><c:if test="${(sessionScope.authUser.no) == (vo.userNo)}">
-												<a href="${pageContext.request.contextPath}/board/delete?no=${vo.no}">[삭제]</a>
+												<a href="${pageContext.request.contextPath}/comment/delete?no=${vo.no}">[삭제]</a>
 											</c:if></td>
 									</tr>
 								</c:forEach>
@@ -85,7 +99,7 @@
 							<div class="clear"></div>
 						</div>
 						<c:if test="${!(empty sessionScope.authUser)}">
-							<a id="btn_write" href="${pageContext.request.contextPath}/board/writeForm">글쓰기</a>
+							<a id="btn_write" href="${pageContext.request.contextPath}/comment/writeForm">글쓰기</a>
 						</c:if>
 					</div>
 					<!-- //list -->
