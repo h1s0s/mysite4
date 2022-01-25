@@ -62,10 +62,10 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/join", method = { RequestMethod.GET, RequestMethod.POST })
-	public String join() {
+	public String join(@ModelAttribute UserVo userVo) {
 		System.out.println("[UserComtroller.join()]");
-
-		return "redirect:/";
+		userService.join(userVo);
+		return "joinOk";
 	}
 
 	@RequestMapping(value = "/modifyForm", method = { RequestMethod.GET, RequestMethod.POST })
@@ -84,11 +84,6 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	@RequestMapping(value = "/join", method = { RequestMethod.GET, RequestMethod.POST })
-	public String join(@ModelAttribute UserVo userVo) {
-		System.out.println("[UserComtroller.join()]");
-		userService.join(userVo);
-		return "joinOk";
-	}
+
 
 }

@@ -77,7 +77,7 @@ public class BoardController {
 
 		boardService.boardDelete(no);
 
-		return "redirect:/board";
+		return "redirect:/board/list";
 	}
 
 	@RequestMapping(value = "/modifyForm", method = { RequestMethod.GET, RequestMethod.POST })
