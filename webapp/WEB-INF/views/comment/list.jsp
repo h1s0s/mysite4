@@ -63,7 +63,7 @@
 										<td>${vo.no}</td>
 										<td class="text-left">
 											<a href="${pageContext.request.contextPath}/comment/read?no=${vo.no}">
-												<c:forEach begin="1" end="${vo.depth}">&nbsp&nbsp&nbsp&nbsp</c:forEach>${vo.title}
+												<c:forEach begin="1" end="${vo.depth}">↳</c:forEach>${vo.title}
 											</a>
 										</td>
 										<td>${vo.name}</td>
