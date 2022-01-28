@@ -28,7 +28,7 @@ public class GuestbookController {
 		List<GuestbookVo> guestbookList = guestbookService.getList();
 		model.addAttribute("guestbookList", guestbookList);
 		
-		return "addList";
+		return "/guestbook/addList";
 	}
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET, RequestMethod.POST })
