@@ -16,10 +16,30 @@
 		]]>
 	</select>
 	
+	<!-- 방명록 글1개 가져오기 -->
+   <select id="selectByNo" parameterType="int" resultType="GuestbookVo">
+      <![CDATA[
+         select no, name, password, content, reg_date regDate
+         from guestbook
+         where no = #{no}
+      ]]>
+   </select>
+	
 	<insert id="guestbookInsert" parameterType="GuestbookVo">
 		<![CDATA[
 			insert into guestbook
 			values (seq_id.nextval, #{name}, #{password}, #{content}, sysdate)
+		]]>
+	</insert>
+	
+	<!-- 방명록 글 저장 후 키값 뽑기 -->
+	<insert id="insertSelectKey" parameterType="GuestbookVo">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			select seq_id.nextval from dual
+		</selectKey>
+		<![CDATA[
+			insert into guestbook
+			values (#{no}, #{name}, #{password}, #{content}, sysdate)
 		]]>
 	</insert>
 	

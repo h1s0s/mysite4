@@ -28,4 +28,14 @@ public class GuestbookService {
 		System.out.println("guestbookService.guestbookInsert()");
 		guestbookDao.guestbookDelete(no, password);
 	}
+	
+	public GuestbookVo addGuestResultVo(GuestbookVo guestbookVo) {//name,pw,content만 있음
+		System.out.println("guestbookService.addGuestResultVo()");
+		
+		//저장하기
+		int no = guestbookDao.insertSelectKey(guestbookVo);//여기서 selectKey의 no 추가됨.중
+		System.out.println("[service no]="+no);
+		//저장한내용 가져오기int no = guestbookVo.getNo();
+		return guestbookDao.selectGuest(no);
+	}
 }

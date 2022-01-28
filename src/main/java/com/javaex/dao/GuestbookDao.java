@@ -43,4 +43,15 @@ public class GuestbookDao {
 		int count = sqlSession.delete("guestbook.guestbookDelete", guestMap);
 		return count;
 	}
+	
+	public int insertSelectKey(GuestbookVo guestbookVo) {
+		System.out.println("[GuestbookDao.guestbookDelete()");
+		int count = sqlSession.insert("guestbook.insertSelectKey", guestbookVo);
+		return count;
+	}
+	
+	public GuestbookVo selectGuest(int num) {
+		System.out.println("[GuestbookDao.selectGuest()");
+		return sqlSession.selectOne("guestbook.selectByNo", num);//이 객체는 새로 만들어짐.
+	}
 }

@@ -24,7 +24,7 @@
 			<!-- /aside -->
 			<div id="content">
 				<div id="guestbook">
-					<form action="${pageContext.request.contextPath}/guest/add" method="get">
+					<%-- <form action="${pageContext.request.contextPath}/guest/add" method="get"> --%>
 						<table id="guestAdd">
 							<colgroup>
 								<col style="width: 70px;">
@@ -43,31 +43,16 @@
 									<td colspan="4"><textarea name="content" cols="72" rows="5"></textarea></td>
 								</tr>
 								<tr class="button-area">
-									<td colspan="4" class="text-center"><button type="submit">등록</button></td>
+									<td colspan="4" class="text-center">
+									<button id="btnSubmit" type="submit">등록</button></td>
 								</tr>
 							</tbody>
 						</table>
 						<!-- //guestWrite -->
-					</form>
-					<%-- 					<c:forEach items="${requestScope.guestbookList}" var="vo">
-						<table class="guestRead">
-							<colgroup>
-								<col style="width: 10%;">
-								<col style="width: 40%;">
-								<col style="width: 40%;">
-								<col style="width: 10%;">
-							</colgroup>
-							<tr>
-								<td>${vo.no}</td>
-								<td>${vo.name}</td>
-								<td>${vo.regDate}</td>
-								<td><a href="${pageContext.request.contextPath}/guest/deleteForm?no=${vo.no}">[삭제]</a></td>
-							</tr>
-							<tr>
-								<td colspan=4 class="text-left">${vo.content}</td>
-							</tr>
-						</table>
-					</c:forEach> --%>
+					<!-- </form> -->
+					<div id="listArea">
+						<!-- 테이블을 넣을 영역 -->
+					</div>
 				</div>
 				<!-- //guestbook -->
 			</div>
@@ -82,25 +67,110 @@
 <script type="text/javascript">
 	// 로딩되기전에 요청
 	//ready : dom이 만들어지고 페이지에 뿌리기 전에
+	
+	//페이지가 dom을 생성하고 로딩이 되기 전일때
 	$(document).ready(function() {
 		console.log("리스트 요청(페이지 로딩전)");
+		fetchList();
+	});
+	
+	//저장버튼이 클릭될때
+	$("#btnSubmit").on("click", function(){
+		console.log("클릭");
+		//폼에 있는 데이터를 모아야 한다.
+		var name = $("#input-uname").val();
+		var password = $("#input-pass").val();
+		var content = $("[name='content'").val();
+		
+		//객체
+		var guestbookVo = {
+			name: name,
+			password: password,
+			content: content
+		};
+		console.log(guestbookVo);//확인용
+		
+		//요청
 		$.ajax({
 			//요청할때
-			url : "${pageContext.request.contextPath}/api/gustbook/list",// 컨트롤러/메소드      
+			url : "${pageContext.request.contextPath}/api/guestbook/write",// 주소.    
+			type : "get",//get, post(어차피 차이 없음)
+			contentType : "application/json",
+			data : guestbookVo,
+/* 			= {name: guestbookVo.name,
+					password : guestbookVo.password,
+					content : guestbookVo.content},  */
+					//데이터를 보낼때 파라미터로 변함
+
+			//응답받을때
+			//dataType : "json",
+			success : function(guestbookVo) {//json --> js로 변환되서 result에 담김
+				/*성공시 처리해야될 코드 작성*/
+				console.log(guestbookVo);
+				render(guestbookVo,'up');
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	});
+	
+	//리스트 출력
+	function fetchList(){
+		$.ajax({
+			//요청할때
+			url : "${pageContext.request.contextPath}/api/guestbook/list",// 주소.    
 			type : "get",//get, post(어차피 차이 없음)
 			//contentType : "application/json",
 			//data : {name: "홍길동"},
 
 			//응답받을때
 			//dataType : "json",
-			success : function(result) {
+			success : function(guestbookList) {//json --> js로 변환되서 result에 담김
 				/*성공시 처리해야될 코드 작성*/
+
+				console.log(guestbookList);
+			
+				for(var i=0; i<guestbookList.length; i++){
+					render(guestbookList[i], 'down'); // 방명록리스트 그리기
+				}
+				
 			},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
 			}
 		});
-
-	});
+	}
+	//리스트 그리기
+	function render(guestbookVo, updown){
+		var str = "";
+		str += '<table class="guestRead">';
+		str += '	<colgroup>';
+		str += '		<col style="width: 10%">';
+		str += '		<col style="width: 40%">';
+		str += '		<col style="width: 40%">';
+		str += '		<col style="width: 10%">';
+		str += '	<table class="guestRead">';
+		str += '	</colgroup>';
+		str += '	<tr>';
+		str += '		<td>'+guestbookVo.no+'</td>';
+		str += '		<td>'+guestbookVo.name+'</td>';
+		str += '		<td>'+guestbookVo.regDate+'</td>';
+		str += '		<td><a href="${pageContext.request.contextPath}/guest/deleteForm?no=${vo.no}">[삭제]</a></td>';
+		str += '	</tr>';
+		str += '	<tr>';
+		str += '		<td colspan=4 class="text-left">'+guestbookVo.content+'</td>';
+		str += '	</tr>';
+		str += '</table>';
+		
+		if(updown == 'down'){ 
+			$("#listArea").append(str);
+		}else if(updown =='up') {
+			$("#listArea").prepend(str);
+		}else {
+			console.log("방향오류");
+		}
+		
+	};
 </script>
 </html>
