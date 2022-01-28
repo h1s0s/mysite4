@@ -80,7 +80,7 @@
 		//폼에 있는 데이터를 모아야 한다.
 		var name = $("#input-uname").val();
 		var password = $("#input-pass").val();
-		var content = $("[name='content'").val();
+		var content = $("[name='content']").val();
 		
 		//객체
 		var guestbookVo = {
@@ -108,6 +108,9 @@
 				/*성공시 처리해야될 코드 작성*/
 				console.log(guestbookVo);
 				render(guestbookVo,'up');
+				$("#input-uname").val("");
+				$("#input-pass").val("");
+				$("[name='content']").val("");
 			},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
