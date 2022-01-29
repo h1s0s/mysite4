@@ -41,11 +41,7 @@ public class ApiGuestbookController {
 	@RequestMapping("/write")
 	public GuestbookVo write(@ModelAttribute GuestbookVo guestbookVo) {
 		System.out.println("[ApiGuestbookController.write()]");
-		System.out.println(guestbookVo);
-		
 		GuestbookVo gVo = guestbookService.addGuestResultVo(guestbookVo);
-		System.out.println(gVo);
-		
 		return gVo;
 	}
 }

@@ -24,12 +24,11 @@
 			<!-- /aside -->
 			<div id="content">
 				<div id="guestbook">
-					<%-- <form action="${pageContext.request.contextPath}/guest/add" method="get"> --%>
 						<table id="guestAdd">
 							<colgroup>
-								<col style="width: 70px;">
+								<col style="width: 70px">
 								<col>
-								<col style="width: 70px;">
+								<col style="width: 70px">
 								<col>
 							</colgroup>
 							<tbody>
@@ -43,8 +42,7 @@
 									<td colspan="4"><textarea name="content" cols="72" rows="5"></textarea></td>
 								</tr>
 								<tr class="button-area">
-									<td colspan="4" class="text-center">
-									<button id="btnSubmit" type="submit">등록</button></td>
+									<td colspan="4" class="text-center"><button id="btnSubmit" type="submit">등록</button></td>
 								</tr>
 							</tbody>
 						</table>

@@ -25,9 +25,9 @@
 					<form action="${pageContext.request.contextPath}/guest/add" method="get">
 						<table id="guestAdd">
 							<colgroup>
-								<col style="width: 70px;">
+								<col style="width: 70px">
 								<col>
-								<col style="width: 70px;">
+								<col style="width: 70px">
 								<col>
 							</colgroup>
 							<tbody>
