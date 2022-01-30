@@ -24,6 +24,13 @@
 			where   no=#{no}
 		]]>
 	</select>
+	<select id="idCheck" parameterType="UserVo" resultType="UserVo">
+		<![CDATA[
+			select  id
+			from    users
+			where   id=#{id}
+		]]>
+	</select>
 
 	<insert id="insert" parameterType="UserVo">
 		<![CDATA[

@@ -29,6 +29,9 @@ public class UserService {
 		userDao.insert(userVo);
 	}
 	
+	public UserVo idcheck(UserVo userVo) {
+		return userDao.idCheck(userVo);
+	}
 	
 
 }

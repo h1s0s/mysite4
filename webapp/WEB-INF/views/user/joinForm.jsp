@@ -9,6 +9,8 @@
 <link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/user.css" rel="stylesheet" type="text/css">
 
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery-1.12.4.js"></script>
+
 </head>
 
 <body>
@@ -49,9 +51,10 @@
 								<!-- 아이디 -->
 								<div class="form-group">
 									<label class="form-text" for="input-uid">아이디</label> <input type="text" id="input-uid" name="id" value="" placeholder="아이디를 입력하세요">
-									<button type="button" id="">중복체크</button>
+									<button type="button" id="btnCheck">중복체크</button>
 								</div>
-
+								<div id="msg">
+								</div>
 								<!-- 비밀번호 -->
 								<div class="form-group">
 									<label class="form-text" for="input-pass">패스워드</label> <input type="text" id="input-pass" name="password" value="" placeholder="비밀번호를 입력하세요">
@@ -93,5 +96,48 @@
 	</div>
 	<!-- //wrap -->
 </body>
+<script type="text/javascript">
+	//중복체크를 클릭할때
+	$("#btnCheck").on("click", function(){
+		console.log("클릭");
+		//입력한 아이디 값을 가져온다.
+		var id = $("#input-uid").val();
+		var userVo ={
+				id: id
+		};
+		
+		$.ajax({
+			//요청할때
+			url : "${pageContext.request.contextPath}/user/check",   
+			type : "get",
+			contentType : "application/json",
+			data : userVo,
 
+			//응답받을때
+			//dataType : "json",
+			success : function(userVo) {//json --> js로 변환되서 result에 담김
+				/*성공시 처리해야될 코드 작성*/
+				console.log(userVo);
+				if(userVo.id == null){//중복 없음
+					success();
+				}else{//중복 있음
+					fail();
+				}
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	})
+	function success(){
+		var str = "";
+		str += '<p color="#0F0">사용 가능한 아이디 입니다.</p>';
+		$("#msg").html(str);
+	}
+	function fail(){
+		var str = "";
+		str += '<p color="#F00">중복된 아이디가 있습니다.</p>';
+		$("#msg").html(str);
+	}
+</script>
 </html>

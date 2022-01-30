@@ -30,11 +30,16 @@ public class UserDao {
 		System.out.println("[UserDao.insert()");
 		return sqlSession.selectOne("user.getUser", no);
 	}
-//  업데이
+//  업데이트
 	public int Update(UserVo userVo) {
 		System.out.println("[UserDao.update()]");
 		int count = sqlSession.update("user.update", userVo);
 		System.out.println("["+count+"건이 수정되었습니다(UserDao)");
 		return count;
+	}
+	public UserVo idCheck(UserVo userVo) {
+		System.out.println("[UserDao.idCheck()]");
+		UserVo authUser = sqlSession.selectOne("user.idCheck", userVo);
+		return authUser;
 	}
 }
