@@ -25,7 +25,7 @@ public class BoardController {
 
 	@RequestMapping(value = "/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public String list(Model model) {
-		System.out.println("[BoardController.list()");
+		System.out.println("[BoardController.list()]");
 
 		List<BoardVo> boardList = boardService.getList();
 
@@ -36,8 +36,9 @@ public class BoardController {
 
 	@RequestMapping(value = "/writeForm", method = { RequestMethod.GET, RequestMethod.POST })
 	public String writeForm(HttpSession session) {
-		System.out.println("[BoardController.writeForm()");
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
+		System.out.println("[BoardController.writeForm()]");
+		
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if (authUser != null) {
 			return "/board/writeForm";
 		} else {
@@ -46,14 +47,11 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/write", method = { RequestMethod.GET, RequestMethod.POST })
-	public String write(HttpSession session, @RequestParam("title") String title,
-			@RequestParam("content") String content) {
-		System.out.println("[BoardController.write()");
+	public String write(@ModelAttribute BoardVo boardVo,
+						HttpSession session) {
+		System.out.println("[BoardController.write()]");
 
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		BoardVo boardVo = new BoardVo();
-		boardVo.setTitle(title);
-		boardVo.setContent(content);
+		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		boardVo.setUserNo(authUser.getNo());
 		boardService.boardInsert(boardVo);
 
@@ -62,10 +60,9 @@ public class BoardController {
 
 	@RequestMapping(value = "/read", method = { RequestMethod.GET, RequestMethod.POST })
 	public String read(@RequestParam("no") int no, Model model) {
-		System.out.println("[BoardController.read()");
+		System.out.println("[BoardController.read()]");
 
 		BoardVo boardVo = boardService.getBoard(no);
-
 		model.addAttribute("boardVo", boardVo);
 
 		return "/board/read";
@@ -73,7 +70,7 @@ public class BoardController {
 
 	@RequestMapping(value = "/delete", method = { RequestMethod.GET, RequestMethod.POST })
 	public String delete(@RequestParam("no") int no) {
-		System.out.println("[BoardController.delete()");
+		System.out.println("[BoardController.delete()]");
 
 		boardService.boardDelete(no);
 
@@ -85,7 +82,6 @@ public class BoardController {
 		System.out.println("[BoardController.modifyForm()");
 
 		BoardVo boardVo = boardService.getBoard(no);
-
 		model.addAttribute("boardVo", boardVo);
 
 		return "/board/modifyForm";
@@ -93,7 +89,7 @@ public class BoardController {
 
 	@RequestMapping(value = "/modify", method = { RequestMethod.GET, RequestMethod.POST })
 	public String modify(@ModelAttribute BoardVo boardVo) {
-		System.out.println("[BoardController.modify()");
+		System.out.println("[BoardController.modify()]");
 
 		boardService.boardUpdate(boardVo);
 

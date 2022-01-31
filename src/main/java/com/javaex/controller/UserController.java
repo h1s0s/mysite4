@@ -85,6 +85,7 @@ public class UserController {
 		return "redirect:/";
 	}
 	
+	//아이디 중복체크
 	@ResponseBody
 	@RequestMapping(value= "/check", method = { RequestMethod.GET, RequestMethod.POST})
 	public UserVo check(@ModelAttribute UserVo userVo) {

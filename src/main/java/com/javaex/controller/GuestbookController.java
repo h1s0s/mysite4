@@ -23,7 +23,7 @@ public class GuestbookController {
 
 	@RequestMapping(value="/addList", method= {RequestMethod.GET,RequestMethod.POST})
 	public String addList(Model model) {
-		System.out.println("GuestbookController.addList()");
+		System.out.println("[GuestbookController.addList()]");
 		
 		List<GuestbookVo> guestbookList = guestbookService.getList();
 		model.addAttribute("guestbookList", guestbookList);
@@ -33,7 +33,7 @@ public class GuestbookController {
 
 	@RequestMapping(value = "/add", method = { RequestMethod.GET, RequestMethod.POST })
 	public String add(@ModelAttribute GuestbookVo guestbookVo) {
-		System.out.println("[GuestbookController.add()");
+		System.out.println("[GuestbookController.add()]");
 
 		guestbookService.guestbookInsert(guestbookVo);
 
@@ -42,14 +42,14 @@ public class GuestbookController {
 
 	@RequestMapping(value = "/deleteForm", method = { RequestMethod.GET, RequestMethod.POST })
 	public String deleteForm(@RequestParam("no") int no) {
-		System.out.println("[GuestbookController.deleteForm()");
+		System.out.println("[GuestbookController.deleteForm()]");
 
 		return "/guestbook/deleteForm";
 	}
 
 	@RequestMapping(value = "/delete", method = { RequestMethod.GET, RequestMethod.POST })
 	public String delete(@RequestParam("no") int no, @RequestParam("password") String password) {
-		System.out.println("[GuestbookController.delete()");
+		System.out.println("[GuestbookController.delete()]");
 
 		guestbookService.guestbookDelete(no, password);
 
