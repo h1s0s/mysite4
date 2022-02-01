@@ -17,7 +17,7 @@ public class UserDao {
 		System.out.println("[UserDao.getUser()]");
 		return sqlSession.selectOne("user.selectUser", userVo);
 	}
-//	// 저장 메소드(회원가입)
+	// 저장 메소드(회원가입)
 	public int insert(UserVo userVo) {
 		System.out.println("[UserDao.insert()");
 		int count = sqlSession.insert("user.insert", userVo);
@@ -25,18 +25,19 @@ public class UserDao {
 		return count;
 	}
 
-//	// 회원정보 가져오기(수정용)
+	// 회원정보 가져오기(수정용)
 	public UserVo getUser(int no) {
 		System.out.println("[UserDao.insert()");
 		return sqlSession.selectOne("user.getUser", no);
 	}
-//  업데이트
+	//업데이트
 	public int Update(UserVo userVo) {
 		System.out.println("[UserDao.update()]");
 		int count = sqlSession.update("user.update", userVo);
 		System.out.println("["+count+"건이 수정되었습니다(UserDao)");
 		return count;
 	}
+	//아이디 중복체크
 	public UserVo idCheck(UserVo userVo) {
 		System.out.println("[UserDao.idCheck()]");
 		UserVo authUser = sqlSession.selectOne("user.idCheck", userVo);
