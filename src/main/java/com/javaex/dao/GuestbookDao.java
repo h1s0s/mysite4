@@ -23,7 +23,7 @@ public class GuestbookDao {
 	}
 	
 	public int guestbookInsert(GuestbookVo guestbookVo) {
-		System.out.println("[GuestbookDao.guestbookInsert()");
+		System.out.println("[GuestbookDao.guestbookInsert()]");
 		
 		int count = sqlSession.insert("guestbook.guestbookInsert", guestbookVo);
 		
@@ -33,7 +33,7 @@ public class GuestbookDao {
 	}
 
 	public int guestbookDelete(int no, String password) {
-		System.out.println("[GuestbookDao.guestbookDelete()");
+		System.out.println("[GuestbookDao.guestbookDelete()]");
 		
 		Map<String, Object> guestMap = new HashMap<String, Object>();
 		
@@ -45,13 +45,13 @@ public class GuestbookDao {
 	}
 	
 	public int insertSelectKey(GuestbookVo guestbookVo) {
-		System.out.println("[GuestbookDao.guestbookDelete()");
+		System.out.println("[GuestbookDao.guestbookDelete()]");
 		int count = sqlSession.insert("guestbook.insertSelectKey", guestbookVo);
 		return count;
 	}
 	
 	public GuestbookVo selectGuest(int num) {
-		System.out.println("[GuestbookDao.selectGuest()");
+		System.out.println("[GuestbookDao.selectGuest()]");
 		return sqlSession.selectOne("guestbook.selectByNo", num);//이 객체는 새로 만들어짐.
 	}
 }

@@ -21,7 +21,7 @@ public class UserDao {
 	public int insert(UserVo userVo) {
 		System.out.println("[UserDao.insert()");
 		int count = sqlSession.insert("user.insert", userVo);
-		System.out.println("["+count+"건이 등록되었습니다(UserDao)");
+		System.out.println("["+count+"건이 등록되었습니다(UserDao)]");
 		return count;
 	}
 
@@ -34,7 +34,7 @@ public class UserDao {
 	public int Update(UserVo userVo) {
 		System.out.println("[UserDao.update()]");
 		int count = sqlSession.update("user.update", userVo);
-		System.out.println("["+count+"건이 수정되었습니다(UserDao)");
+		System.out.println("["+count+"건이 수정되었습니다(UserDao)]");
 		return count;
 	}
 	//아이디 중복체크
