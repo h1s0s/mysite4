@@ -24,16 +24,27 @@ public class GuestbookService {
 		guestbookDao.guestbookInsert(guestbookVo);
 	}
 
-	public void guestbookDelete(int no, String password) {
+	public int guestbookDelete(int no, String password) {
 		System.out.println("[guestbookService.guestbookInsert()]");
-		guestbookDao.guestbookDelete(no, password);
+		return guestbookDao.guestbookDelete(no, password);
 	}
-	
-	public GuestbookVo addGuestResultVo(GuestbookVo guestbookVo) {//name,pw,content만 있음
+
+	// ajax 방명록 글 삭제
+	public String remove(GuestbookVo guestbookVo) {
+		System.out.println("[guestbookService.remove()");
+		int count = guestbookDao.guestbookDelete(guestbookVo.getNo(), guestbookVo.getPassword());
+		if (count > 0) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
+
+	public GuestbookVo addGuestResultVo(GuestbookVo guestbookVo) {// name,pw,content만 있음
 		System.out.println("[guestbookService.addGuestResultVo()]");
-		
-		//저장하기
-		int count = guestbookDao.insertSelectKey(guestbookVo);//여기서 selectKey의 no 추가됨.중
+
+		// 저장하기
+		int count = guestbookDao.insertSelectKey(guestbookVo);// 여기서 selectKey의 no 추가됨.중
 		int no = guestbookVo.getNo();
 		return guestbookDao.selectGuest(no);
 	}
