@@ -44,7 +44,7 @@
 								<td colspan="4"><textarea name="content" cols="72" rows="5"></textarea></td>
 							</tr>
 							<tr class="button-area">
-								<td colspan="4" class="text-center"><button id="btnSubmit" type="submit">등록</button></td>
+								<td colspan="4" class="text-center"><button id="btnSubmit2" type="submit">등록</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -75,9 +75,7 @@
 					<h4 class="modal-title">비밀번호 입력창</h4>
 				</div>
 				<div class="modal-body">
-					비밀번호:
-					<input id="modalPassword" type="password" name="password" value="">
-					<input id="modalNo" type="text" name="no" value="">
+					비밀번호: <input id="modalPassword" type="password" name="password" value=""> <input id="modalNo" type="text" name="no" value="">
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
@@ -99,7 +97,7 @@
 		fetchList();//리스트 그리기
 	});
 
-	//저장버튼이 클릭될때
+	//저장버튼이 클릭될때(파라미터 방식)
 	$("#btnSubmit").on("click", function() {
 		console.log("클릭");
 		//폼에 있는 데이터를 모아야 한다.
@@ -141,6 +139,46 @@
 			}
 		});
 	});
+
+	//저장버튼이 클릭될때 json방식 요청
+	$("#btnSubmit2").on("click", function() {
+		console.log("클릭(json)");
+
+		//폼에 있는 데이터를 모아야 한다.
+		var name = $("#input-uname").val();
+		var password = $("#input-pass").val();
+		var content = $("[name='content']").val();
+
+		//객체
+		var guestbookVo = {
+			name : name,
+			password : password,
+			content : content
+		};
+		console.log(guestbookVo);//확인용
+
+		//요청
+		$.ajax({
+			//요청할때
+			url : "${pageContext.request.contextPath}/api/guestbook/write2",    
+			type : "post",
+			contentType : "application/json",
+			data : JSON.stringify(guestbookVo),// 자바스크립트 객체를 제이슨으로 바꿔주는 함수
+			
+			dataType : "json",
+			success : function(guestbookVo) {
+				console.log(guestbookVo);
+				render(guestbookVo, 'up');
+				$("#input-uname").val("");
+				$("#input-pass").val("");
+				$("[name='content']").val("");
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	});
+
 	//삭제팝업 버튼을 눌렀을때
 	$("#listArea").on("click", ".btnDelPop", function() {//리스트는 나중에 생기기 때문에, 부모인 div를 지정하고, 위임해준다
 		//데이타 수집
@@ -154,38 +192,42 @@
 	});
 
 	//모달의 삭제를 눌렀을때
-	$("#modalBtnDel").on("click", function(){
+	$("#modalBtnDel").on("click", function() {
 		console.log("모달창 삭제버튼 클릭");
-		
+
+		var no = $("#modalNo").val();
+		var password = $("#modalPassword").val();
 		var delInfoVo = {
-			no : $("#modalNo").val(),
-			password : $("#modalPassword").val()
+			no : no,
+			password : password
 		}
-		
+
 		console.log(delInfoVo);
 		//ajax 요청 no password
- 		$.ajax({
+		$.ajax({
 			url : "${pageContext.request.contextPath}/api/guestbook/remove",
 			type : "post",
 			//contentType : "application/json",
 			data : delInfoVo,
 
 			//dataType : "json",
-			success : function(result) {
-				
+			success : function(state) {
+				if (state === 'success') {
+					//해당 테이블 html 삭제
+					$('#t' + no).remove();
+					//모달창 닫기
+					$('#delModal').modal('hide');
+				} else {
+					alert("비밀번호가 틀렸습니다.");//얼랏
+				}
 			},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
 			}
-		}); 
-		//화면에서 변경되는 부분 반영
-		
-		//모달창 닫기
-		
-		//해당 테이블 html 삭제
-	
+		});
+
 	});
-	
+
 	//리스트 출력
 	function fetchList() {
 		$.ajax({
@@ -216,7 +258,7 @@
 	//리스트 그리기
 	function render(guestbookVo, updown) {
 		var str = "";
-		str += '<table class="guestRead">';
+		str += '<table id="t'+guestbookVo.no+'" class="guestRead">';
 		str += '	<colgroup>';
 		str += '		<col style="width: 10%">';
 		str += '		<col style="width: 40%">';
