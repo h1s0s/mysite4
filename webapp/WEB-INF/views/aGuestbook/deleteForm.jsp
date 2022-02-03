@@ -14,11 +14,11 @@
 <body>
 	<div id="wrap">
 		<!-- header -->
-		<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 		<!-- //header -->
 		<div id="container" class="clearfix">
 			<!-- aside -->
-			<jsp:include page="/WEB-INF/views/include/asideGuest.jsp"></jsp:include>
+			<c:import url="/WEB-INF/views/include/asideGuest.jsp"></c:import>
 			<!-- /aside -->
 			<div id="content">
 				<div id="content-head">
@@ -57,7 +57,7 @@
 			<!-- //content  -->
 		</div>
 		<!-- //container  -->
-		<jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
 	</div>
 	<!-- //wrap -->
