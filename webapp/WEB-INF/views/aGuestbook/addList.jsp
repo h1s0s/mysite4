@@ -64,13 +64,13 @@
 </body>
 <script type="text/javascript">
 	// 로딩되기전에 요청
-	//ready : dom이 만들어지고 페이지에 뿌리기 전에
-	
 	//페이지가 dom을 생성하고 로딩이 되기 전일때
-	$(document).ready(function() {
+	$(document).ready(function() {//ready: 돔이 만들어진 후 페이지를 뿌리기 전
 		console.log("리스트 요청(페이지 로딩전)");
-		fetchList();
+		fetchList();//리스트 그리기
 	});
+	
+	
 	
 	//저장버튼이 클릭될때
 	$("#btnSubmit").on("click", function(){
@@ -115,18 +115,27 @@
 			}
 		});
 	});
+	//삭제팝업 버튼을 눌렀을때
+	$("#listArea").on("click", ".btnDelPop", function(){//리스트는 나중에 생기기 때문에, 부모인 div를 지정하고, 위임해준다
+		var $this = $(this);
+		console.log($this);
+		
+		//회색 바탕
+		//회색바탕 위에 팝업창을 만듬
+		
+	});
 	
 	//리스트 출력
 	function fetchList(){
 		$.ajax({
 			//요청할때
 			url : "${pageContext.request.contextPath}/api/guestbook/list",// 주소.    
-			type : "get",//get, post(어차피 차이 없음)
+			type : "post",//get, post(어차피 차이 없음)
 			//contentType : "application/json",
 			//data : {name: "홍길동"},
 
 			//응답받을때
-			//dataType : "json",
+			dataType : "json",
 			success : function(guestbookList) {//json --> js로 변환되서 result에 담김
 				/*성공시 처리해야될 코드 작성*/
 
@@ -151,13 +160,12 @@
 		str += '		<col style="width: 40%">';
 		str += '		<col style="width: 40%">';
 		str += '		<col style="width: 10%">';
-		str += '	<table class="guestRead">';
 		str += '	</colgroup>';
 		str += '	<tr>';
 		str += '		<td>'+guestbookVo.no+'</td>';
 		str += '		<td>'+guestbookVo.name+'</td>';
 		str += '		<td>'+guestbookVo.regDate+'</td>';
-		str += '		<td><a href="${pageContext.request.contextPath}/guest/deleteForm?no=${vo.no}">[삭제]</a></td>';
+		str += '		<td><button type="button" class="btnDelPop" ' + guestbookVo.no + '>삭제</button></td>';
 		str += '	</tr>';
 		str += '	<tr>';
 		str += '		<td colspan=4 class="text-left">'+guestbookVo.content+'</td>';

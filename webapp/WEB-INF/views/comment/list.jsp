@@ -49,11 +49,6 @@
 									<th>글쓴이</th>
 									<th>조회수</th>
 									<th>작성일</th>
-									<!--
-									<th>그룹번호</th>
-									<th>그룹내 글순서</th>
-									<th>깊이</th>
-									-->
 									<th>관리</th>
 								</tr>
 							</thead>
@@ -61,19 +56,10 @@
 								<c:forEach items="${requestScope.commentList}" var="vo">
 									<tr>
 										<td>${vo.no}</td>
-										<td class="text-left">
-											<a href="${pageContext.request.contextPath}/comment/read?no=${vo.no}">
-												<c:forEach begin="1" end="${vo.depth}">↳</c:forEach>${vo.title}
-											</a>
-										</td>
+										<td class="text-left"><a href="${pageContext.request.contextPath}/comment/read?no=${vo.no}"> <c:forEach begin="1" end="${vo.depth}">↳</c:forEach>${vo.title}</a></td>
 										<td>${vo.name}</td>
 										<td>${vo.hit}</td>
 										<td>${vo.regDate}</td>
-										<%--
-										<td>${vo.groupNo}</td>
-										<td>${vo.orderNo}</td>
-										<td>${vo.depth}</td> 
-										--%>
 										<td><c:if test="${(sessionScope.authUser.no) == (vo.userNo)}">
 												<a href="${pageContext.request.contextPath}/comment/delete?no=${vo.no}">[삭제]</a>
 											</c:if></td>
