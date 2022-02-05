@@ -31,10 +31,16 @@ public class GalleryDao {
 	public int save(GalleryVo galleryVo) {
 		System.out.println("[GalleryDao.save()]");
 		
-		System.out.println(galleryVo);
 		int count = sqlSession.insert("galleryInsert", galleryVo);
 		System.out.println("["+count+"건이 등록되었습니다.(GalleryDao)");
 		
 		return count;
+	}
+	
+	public void delete(int no) {
+		System.out.println("[GalleryDao.delete()]");
+		
+		int count = sqlSession.delete("galleryDelete", no);
+		System.out.println("["+count+"건이 삭제되었습니다.(GalleryDao)");
 	}
 }

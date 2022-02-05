@@ -145,7 +145,7 @@
 				<form method="" action="">
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-						<button type="button" class="btn btn-danger" id="btnDel">삭제</button>
+						<button type="button" class="btn btn-danger" id="btnDel" data-no="">삭제</button>
 					</div>
 
 
@@ -174,6 +174,7 @@
 				console.log("이미지클릭");
 				var $this = $(this);
 				var no = $this.data('no');
+				$("#btnDel").data('no', no);
 				$.ajax({
 					//요청할때
 					url : "${pageContext.request.contextPath}/gallery/read",
@@ -200,8 +201,26 @@
 			});
 	//삭제를 눌렀을때
 	$("#btnImgUpload").on("click", function() {
-		console.log("모달클릭");
-		$('#addModal').modal('show');
+		console.log("삭제클릭");
+		var $this = $(this);
+		var no = $this.data('no');
+		$.ajax({
+			//요청할때
+			url : "${pageContext.request.contextPath}/gallery/delete",
+			type : "post",
+			//contentType : "application/json",
+			data : {
+				no : no
+			},
+
+			//응답받을때
+			//dataType : "json",
+			//success : function(galleryVo) {	
+			//},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
 	});
 </script>
 

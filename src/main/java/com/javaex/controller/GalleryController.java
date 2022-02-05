@@ -53,7 +53,13 @@ public class GalleryController {
 	public GalleryVo read(@RequestParam("no") int no) {
 		System.out.println("[GalleryController.getGallery()]");
 		GalleryVo galleryVo = galleryService.getGallery(no);
-		System.out.println("controller" + galleryVo);
 		return galleryVo;
+	}
+	
+	@RequestMapping("/delete")
+	public String delete(@RequestParam("no") int no) {
+		System.out.println("[GalleryController.delete()]");
+		galleryService.delete(no);
+		return "redirect:/gallery/list";
 	}
 }

@@ -67,4 +67,9 @@ public class GalleryService {
 		System.out.println("[GalleryService.getGallery()]");
 		return galleryDao.getGallery(no);
 	}
+	
+	public void delete(int no) {
+		System.out.println("[GalleryService.delete()]");
+		galleryDao.delete(no);
+	}
 }
