@@ -62,4 +62,9 @@ public class GalleryService {
 		
 		return galleryDao.save(galleryVo);
 	}
+	
+	public GalleryVo getGallery(int no) {
+		System.out.println("[GalleryService.getGallery()]");
+		return galleryDao.getGallery(no);
+	}
 }

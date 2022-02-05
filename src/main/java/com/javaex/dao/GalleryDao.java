@@ -18,8 +18,14 @@ public class GalleryDao {
 		System.out.println("[GalleryDao.getList()]");
 		
 		List<GalleryVo> galleryList = sqlSession.selectList("getGalleryList");
-		System.out.println(galleryList);
 		return galleryList;
+	}
+	
+	public GalleryVo getGallery(int no) {
+		System.out.println("[GalleryDao.getGallery()]");
+		GalleryVo galleryVo = sqlSession.selectOne("getGallery", no);
+		System.out.println(galleryVo);
+		return galleryVo;
 	}
 	
 	public int save(GalleryVo galleryVo) {

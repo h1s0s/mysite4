@@ -19,6 +19,13 @@
 			 order by no desc
 		]]>
 	</select>
+	<select id="getGallery" parameterType="int" resultType="GalleryVo">
+		<![CDATA[
+			 select   saveName
+			 from     gallery
+			 where	  no = #{no}
+		]]>
+	</select>
 	
 	<insert id="galleryInsert" parameterType="GalleryVo">
 		<![CDATA[

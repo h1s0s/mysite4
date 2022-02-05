@@ -49,8 +49,10 @@
 			<div id="gallery">
 				<div id="list">
 
+					<c:if test="${empty sessionScope.authUser}">
+						<button id="btnImgUpload">이미지올리기</button>
+					</c:if>
 
-					<button id="btnImgUpload">이미지올리기</button>
 					<div class="clear"></div>
 
 
@@ -59,14 +61,14 @@
 						<c:forEach items="${requestScope.galleryList}" var="vo">
 							<li>
 								<div class="view">
-									<img class="imgItem" src="${pageContext.request.contextPath}/upload/${vo.saveName}">
+									<img class="imgItem" src="${pageContext.request.contextPath}/upload/${vo.saveName}" data-no="${vo.no}">
 									<div class="imgWriter">
 										작성자: <strong>${vo.name}</strong>
 									</div>
 								</div>
 							</li>
 						</c:forEach>
-						
+
 					</ul>
 				</div>
 				<!-- //list -->
@@ -131,7 +133,7 @@
 				<div class="modal-body">
 
 					<div class="formgroup">
-						<img id="viewModelImg" src="">
+						<img id="viewModelImg">
 						<!-- ajax로 처리 : 이미지출력 위치-->
 					</div>
 
@@ -166,12 +168,41 @@
 		$('#addModal').modal('show');
 	});
 	//사진을 클릭했을때
-	$(".imgItem").on("click", function() {
-		console.log("이미지클릭");
-		$('#viewModal').modal('show');
-	});
-	
+	$(".imgItem").on(
+			"click",
+			function() {
+				console.log("이미지클릭");
+				var $this = $(this);
+				var no = $this.data('no');
+				$.ajax({
+					//요청할때
+					url : "${pageContext.request.contextPath}/gallery/read",
+					type : "post",
+					//contentType : "application/json",
+					data : {
+						no : no
+					},
 
+					//응답받을때
+					//dataType : "json",
+					success : function(galleryVo) {
+						console.log(galleryVo)
+						$('#viewModelImg').attr(
+								'src',
+								'${pageContext.request.contextPath}/upload/'
+										+ galleryVo.saveName);
+						$('#viewModal').modal('show');
+					},
+					error : function(XHR, status, error) {
+						console.error(status + " : " + error);
+					}
+				});
+			});
+	//삭제를 눌렀을때
+	$("#btnImgUpload").on("click", function() {
+		console.log("모달클릭");
+		$('#addModal').modal('show');
+	});
 </script>
 
 

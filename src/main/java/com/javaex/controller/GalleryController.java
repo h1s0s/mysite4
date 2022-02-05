@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javaex.service.GalleryService;
@@ -21,23 +23,22 @@ public class GalleryController {
 
 	@Autowired
 	private GalleryService galleryService;
-	
+
 	@RequestMapping("/list")
 	public String list(Model model) {
 		System.out.println("[GalleryController.list()]");
-		
+
 		List<GalleryVo> galleryList = galleryService.list();
 		model.addAttribute("galleryList", galleryList);
-		
+
 		return "/gallery/list";
 	}
-	
+
 	@RequestMapping("/upload")
-	public String upload(MultipartFile file, HttpSession session,
-						@ModelAttribute GalleryVo galleryVo) {
+	public String upload(MultipartFile file, HttpSession session, @ModelAttribute GalleryVo galleryVo) {
 		System.out.println("[GalleryController.upload()]");
-		
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
+
+		UserVo authUser = (UserVo) session.getAttribute("authUser");
 		if (authUser != null) {
 			galleryVo.setUserNo(authUser.getNo());
 			galleryService.restore(file, galleryVo);
@@ -45,6 +46,14 @@ public class GalleryController {
 		} else {
 			return "redirect:/";
 		}
-		
+	}
+
+	@ResponseBody
+	@RequestMapping("/read")
+	public GalleryVo read(@RequestParam("no") int no) {
+		System.out.println("[GalleryController.getGallery()]");
+		GalleryVo galleryVo = galleryService.getGallery(no);
+		System.out.println("controller" + galleryVo);
+		return galleryVo;
 	}
 }
