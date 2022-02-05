@@ -59,13 +59,14 @@
 						<c:forEach items="${requestScope.galleryList}" var="vo">
 							<li>
 								<div class="view">
-									<img class="imgItem" src="${pageContext.request.contextPath}/upload/${saveName}">
+									<img class="imgItem" src="${pageContext.request.contextPath}/upload/${vo.saveName}">
 									<div class="imgWriter">
 										작성자: <strong>${vo.name}</strong>
 									</div>
 								</div>
 							</li>
 						</c:forEach>
+						
 					</ul>
 				</div>
 				<!-- //list -->
@@ -163,6 +164,11 @@
 	$("#btnImgUpload").on("click", function() {
 		console.log("모달클릭");
 		$('#addModal').modal('show');
+	});
+	//사진을 클릭했을때
+	$(".imgItem").on("click", function() {
+		console.log("이미지클릭");
+		$('#viewModal').modal('show');
 	});
 	
 

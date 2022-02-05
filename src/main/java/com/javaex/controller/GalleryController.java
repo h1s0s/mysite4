@@ -41,7 +41,7 @@ public class GalleryController {
 		if (authUser != null) {
 			galleryVo.setUserNo(authUser.getNo());
 			galleryService.restore(file, galleryVo);
-			return "/gallery/list";
+			return "redirect:/gallery/list";
 		} else {
 			return "redirect:/";
 		}

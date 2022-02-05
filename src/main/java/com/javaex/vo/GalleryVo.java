@@ -5,7 +5,7 @@ public class GalleryVo {
 	//필드
 	private int no;
 	private int userNo;
-	private int name;
+	private String name;
 	private String content;
 	private String filePath;
 	private String orgName;
@@ -15,8 +15,8 @@ public class GalleryVo {
 	//생성자
 	public GalleryVo() {
 	}
-	public GalleryVo(int no, int userNo, int name, String content, String filePath, String orgName, String saveName,
-			long fileSize) {
+	public GalleryVo(int no, int userNo, String name, String content, String filePath, String orgName, String saveName
+			,long fileSize) {
 		this.no = no;
 		this.userNo = userNo;
 		this.name = name;
@@ -40,10 +40,10 @@ public class GalleryVo {
 	public void setUserNo(int userNo) {
 		this.userNo = userNo;
 	}
-	public int getName() {
+	public String getName() {
 		return name;
 	}
-	public void setName(int name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	public String getContent() {
@@ -81,7 +81,7 @@ public class GalleryVo {
 	@Override
 	public String toString() {
 		return "GalleryVo [no=" + no + ", userNo=" + userNo + ", name=" + name + ", content=" + content + ", filePath="
-				+ filePath + ", orgName=" + orgName + ", saveName=" + saveName + ", fileSize=" + fileSize + "]";
+				+ filePath + ", orgName=" + orgName + ", saveName=" + saveName + ", fileSize="+ fileSize +"]";
 	}
 
 
