@@ -49,7 +49,7 @@
 			<div id="gallery">
 				<div id="list">
 
-					<c:if test="${empty sessionScope.authUser}">
+					<c:if test="${!(empty sessionScope.authUser)}">
 						<button id="btnImgUpload">이미지올리기</button>
 					</c:if>
 
@@ -200,8 +200,9 @@
 				});
 			});
 	//삭제를 눌렀을때
-	$("#btnImgUpload").on("click", function() {
+	$("#btnDel").on("click", function() {
 		console.log("삭제클릭");
+		
 		var $this = $(this);
 		var no = $this.data('no');
 		$.ajax({
@@ -221,11 +222,8 @@
 				console.error(status + " : " + error);
 			}
 		});
+		$('#viewModal').modal('hide');
 	});
 </script>
-
-
-
-
 </html>
 

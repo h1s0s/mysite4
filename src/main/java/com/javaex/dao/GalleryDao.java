@@ -17,13 +17,13 @@ public class GalleryDao {
 	public List<GalleryVo> getList() {
 		System.out.println("[GalleryDao.getList()]");
 		
-		List<GalleryVo> galleryList = sqlSession.selectList("getGalleryList");
+		List<GalleryVo> galleryList = sqlSession.selectList("gallery.getGalleryList");
 		return galleryList;
 	}
 	
 	public GalleryVo getGallery(int no) {
 		System.out.println("[GalleryDao.getGallery()]");
-		GalleryVo galleryVo = sqlSession.selectOne("getGallery", no);
+		GalleryVo galleryVo = sqlSession.selectOne("gallery.getGallery", no);
 		System.out.println(galleryVo);
 		return galleryVo;
 	}
@@ -31,7 +31,7 @@ public class GalleryDao {
 	public int save(GalleryVo galleryVo) {
 		System.out.println("[GalleryDao.save()]");
 		
-		int count = sqlSession.insert("galleryInsert", galleryVo);
+		int count = sqlSession.insert("gallery.galleryInsert", galleryVo);
 		System.out.println("["+count+"건이 등록되었습니다.(GalleryDao)");
 		
 		return count;
