@@ -68,8 +68,8 @@ public class GalleryService {
 		return galleryDao.getGallery(no);
 	}
 	
-	public void delete(int no) {
+	public int delete(int no) {
 		System.out.println("[GalleryService.delete()]");
-		galleryDao.delete(no);
+		return galleryDao.delete(no);
 	}
 }

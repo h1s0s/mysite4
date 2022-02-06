@@ -56,10 +56,10 @@ public class GalleryController {
 		return galleryVo;
 	}
 	
+	@ResponseBody
 	@RequestMapping("/delete")
-	public String delete(@RequestParam("no") int no) {
+	public int delete(@RequestParam("no") int no) {
 		System.out.println("[GalleryController.delete()]");
-		galleryService.delete(no);
-		return "redirect:/gallery/list";
+		return galleryService.delete(no);
 	}
 }

@@ -37,10 +37,11 @@ public class GalleryDao {
 		return count;
 	}
 	
-	public void delete(int no) {
+	public int delete(int no) {
 		System.out.println("[GalleryDao.delete()]");
 		
 		int count = sqlSession.delete("galleryDelete", no);
 		System.out.println("["+count+"건이 삭제되었습니다.(GalleryDao)");
+		return count;
 	}
 }

@@ -59,7 +59,7 @@
 					<ul id="viewArea">
 
 						<c:forEach items="${requestScope.galleryList}" var="vo">
-							<li>
+							<li id="l${vo.no}">
 								<div class="view">
 									<img class="imgItem" src="${pageContext.request.contextPath}/upload/${vo.saveName}" data-no="${vo.no}">
 									<div class="imgWriter">
@@ -174,7 +174,6 @@
 				console.log("이미지클릭");
 				var $this = $(this);
 				var no = $this.data('no');
-				$("#btnDel").data('no', no);
 				$.ajax({
 					//요청할때
 					url : "${pageContext.request.contextPath}/gallery/read",
@@ -192,6 +191,7 @@
 								'src',
 								'${pageContext.request.contextPath}/upload/'
 										+ galleryVo.saveName);
+						$("#viewModelContent").html('<strong>'+galleryVo.content+'</strong>');
 						$('#viewModal').modal('show');
 					},
 					error : function(XHR, status, error) {
@@ -202,7 +202,7 @@
 	//삭제를 눌렀을때
 	$("#btnDel").on("click", function() {
 		console.log("삭제클릭");
-		
+
 		var $this = $(this);
 		var no = $this.data('no');
 		$.ajax({
@@ -216,13 +216,16 @@
 
 			//응답받을때
 			//dataType : "json",
-			//success : function(galleryVo) {	
-			//},
+			success : function(int) {	
+				
+				$('#viewModal').modal('hide');
+				$('#l'+no).remove();
+			},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
 			}
 		});
-		$('#viewModal').modal('hide');
+		
 	});
 </script>
 </html>

@@ -21,7 +21,8 @@
 	</select>
 	<select id="getGallery" parameterType="int" resultType="GalleryVo">
 		<![CDATA[
-			 select   saveName
+			 select   content,
+			 		  saveName
 			 from     gallery
 			 where	  no = #{no}
 		]]>
