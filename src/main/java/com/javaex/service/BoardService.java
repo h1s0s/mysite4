@@ -55,6 +55,8 @@ public class BoardService {
 		boolean next = false;
 		if(endPageBtnNo*listCnt < totalCnt) {
 			next = true;
+		} else { // 다음 화살표가 안보이면 마지막 버튼값을 다시 계산한다
+			endPageBtnNo = (int)(Math.ceil(totalCnt/(double)listCnt));
 		}
 		
 		//이전 화살표 유무
