@@ -73,9 +73,18 @@
 									<li><a href="${pageContext.request.contextPath}/board/list2?crtPage=${pMap.startPageBtnNo-1}">◀</a></li>
 								</c:if>
 								
-								<c:forEach begin="${pMap.startPageBtnNo}" end="${pMap.endPageBtnNo}" step="1" var="page" >
-									<li class="active"><a class="active" href="${pageContext.request.contextPath}/board/list2?crtPage=${page}">${page}</a></li>
-								</c:forEach>
+									
+									<c:forEach begin="${pMap.startPageBtnNo}" end="${pMap.endPageBtnNo}" step="1" var="page" >
+										<c:choose>
+											<c:when test="${page == param.crtPage}">
+												<li class="active"><a class="active" href="${pageContext.request.contextPath}/board/list2?crtPage=${page}">${page}</a></li>
+											</c:when>
+											<c:otherwise>
+												<li><a class="active" href="${pageContext.request.contextPath}/board/list2?crtPage=${page}">${page}</a></li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								
 								
 								<c:if test="${pMap.next == true}">
 									<li><a href="${pageContext.request.contextPath}/board/list2?crtPage=${pMap.endPageBtnNo+1}">▶</a></li>
