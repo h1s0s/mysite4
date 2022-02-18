@@ -13,6 +13,7 @@
 			and password =  #{password}
 		]]>
 	</select>
+	
 	<select id="getUser" parameterType="int" resultType="UserVo">
 		<![CDATA[
 			select  no,
